@@ -1,0 +1,39 @@
+package com.example.proyecto_final
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.room.Room
+import com.example.proyecto_final.data.GestorDatabase
+import com.example.proyecto_final.ui.theme.Proyecto_FinalTheme
+import com.example.proyecto_final.repository.Repo
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        val database = Room.databaseBuilder(
+            applicationContext,
+            GestorDatabase::class.java,
+            "Gestor_db"
+        ).build()
+
+        val repository = Repo(database.gestorDao())
+
+        setContent {
+            Proyecto_FinalTheme {
+
+            }
+        }
+    }
+}
+
