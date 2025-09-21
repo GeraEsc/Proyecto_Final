@@ -1,15 +1,14 @@
-package com.example.proyecto_final.ViewModel
+package com.example.core_data.ViewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.proyecto_final.data.Actividad
-import com.example.proyecto_final.repository.Repo
+import com.example.core_data.model.Actividad
+import com.example.core_data.repository.Repo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlin.text.insert
 
 class GestorViewModel (private val repository: Repo): ViewModel() {
 
@@ -19,8 +18,8 @@ class GestorViewModel (private val repository: Repo): ViewModel() {
 
     init {
         viewModelScope.launch {
-            repository.getAllActs().collectLatest { notesFromDb ->
-                _Acts.value = notesFromDb
+            repository.getAllActs().collectLatest { actsFromDb ->
+                _Acts.value = actsFromDb
             }
         }
     }
@@ -42,6 +41,9 @@ class GestorViewModel (private val repository: Repo): ViewModel() {
         viewModelScope.launch {
             repository.delete(Act)
         }
+    }
+
+    fun insertFakeData() {
 
     }
 }

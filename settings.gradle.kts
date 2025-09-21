@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Proyecto_Final"
 include(":app")
-include(":app:core-data")
+include(":core-data")

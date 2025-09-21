@@ -1,7 +1,7 @@
-package com.example.proyecto_final.repository
+package com.example.core_data.repository
 
-import com.example.proyecto_final.data.Actividad
-import com.example.proyecto_final.data.GestorDao
+import com.example.core_data.model.Actividad
+import com.example.core_data.data.GestorDao
 import kotlinx.coroutines.flow.Flow
 
 class Repo(private val gestorDAO: GestorDao) {

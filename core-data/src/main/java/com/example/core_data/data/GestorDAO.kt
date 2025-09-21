@@ -1,4 +1,4 @@
-package com.example.proyecto_final.data
+package com.example.core_data.data
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.core_data.model.Actividad
 import kotlinx.coroutines.flow.Flow
 
 //CRUD - Create, Read, Update y Delete
