@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
             "Gestor_db"
         ).build()
 
-        val repository = Repo(database.gestorDao())
+//        val repository = Repo(database.gestorDao())
 
         setContent {
             Proyecto_FinalTheme {

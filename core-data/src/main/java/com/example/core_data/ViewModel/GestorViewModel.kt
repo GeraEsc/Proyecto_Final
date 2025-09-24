@@ -25,25 +25,29 @@ class GestorViewModel (private val repository: Repo): ViewModel() {
     }
 
 
-    fun updateNote(Act: Actividad) {
+    fun updateAct(Act: Actividad) {
         viewModelScope.launch {
             repository.update(Act)
         }
     }
 
-    fun insertNote(Act: Actividad) {
+    fun insertAct(Act: Actividad) {
         viewModelScope.launch {
             repository.insert(Act)
         }
     }
 
-    fun deleteNote(Act: Actividad) {
+    fun deleteAct(Act: Actividad) {
         viewModelScope.launch {
             repository.delete(Act)
         }
     }
 
+    // TODO --- REMOVE --- Tests
     fun insertFakeData() {
+        viewModelScope.launch {
+            repository.insertFakeData()
+        }
 
     }
 }
