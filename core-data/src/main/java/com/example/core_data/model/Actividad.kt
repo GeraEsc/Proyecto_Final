@@ -28,7 +28,7 @@ data class Actividad(
         "id" to id,
         "titulo" to titulo,
         "descripcion" to descripcion,
-        date to date,
+        "date" to date,
         "calificaciones" to calificaciones,
     )
 

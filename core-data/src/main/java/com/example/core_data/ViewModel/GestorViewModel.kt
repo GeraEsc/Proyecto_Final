@@ -1,4 +1,4 @@
-package com.example.core_data.ViewModel
+package com.example.core_data.viewmodel  // mejor en minúsculas
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,16 +10,17 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class GestorViewModel (private val repository: Repo): ViewModel() {
+class GestorViewModel(
+    private val repository: Repo
+) : ViewModel() {
 
-    private val _Acts = MutableStateFlow<List<Actividad>>(emptyList())
-
-    val Actividad: StateFlow<List<Actividad>> = _Acts.asStateFlow()
+    private val _acts = MutableStateFlow<List<Actividad>>(emptyList())
+    val acts: StateFlow<List<Actividad>> = _acts.asStateFlow()
 
     init {
         viewModelScope.launch {
             repository.getAllActs().collectLatest { actsFromDb ->
-                _Acts.value = actsFromDb
+                _acts.value = actsFromDb
             }
         }
     }
@@ -43,11 +44,25 @@ class GestorViewModel (private val repository: Repo): ViewModel() {
         }
     }
 
+    fun syncFromFirebase() {
+        viewModelScope.launch {
+            repository.syncFromFirebase()
+        }
+    }
+
     // TODO --- REMOVE --- Tests
     fun insertFakeData() {
         viewModelScope.launch {
             repository.insertFakeData()
         }
 
+    }
+
+    fun deleteAllData() {
+        viewModelScope.launch {
+            acts.value.forEach {
+                repository.deleteAllData(it)
+            }
+        }
     }
 }

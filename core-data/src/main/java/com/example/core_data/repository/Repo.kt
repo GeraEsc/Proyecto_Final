@@ -18,30 +18,24 @@ class Repo(
         gestorDAO.insertAct(act)
         try {
             firebaseService.uploadAct(act)
-        } catch (_: Exception) {
+        } catch (e: Exception) { android.util.Log.e("Repo", "Firebase error", e) }
 
-
-        }
     }
 
     suspend fun update(act: Actividad) {
         gestorDAO.updateAct(act)
         try {
             firebaseService.uploadAct(act)
-        } catch (_: Exception) {
+        } catch (e: Exception) { android.util.Log.e("Repo", "Firebase error", e) }
 
-
-        }
     }
 
     suspend fun delete(act: Actividad) {
         gestorDAO.deleteAct(act)
         try {
             firebaseService.deleteAct(act)
-        } catch (_: Exception) {
+        } catch (e: Exception) { android.util.Log.e("Repo", "Firebase error", e) }
 
-
-        }
     }
 
     suspend fun syncFromFirebase() {
@@ -54,10 +48,8 @@ class Repo(
                     gestorDAO.insertAct(remote)
                 }
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) { android.util.Log.e("Repo", "Firebase error", e) }
 
-
-        }
     }
 
     // TODO --- REMOVE --- Tests
@@ -89,8 +81,20 @@ class Repo(
             gestorDAO.insertAct(it)
             try {
                 firebaseService.uploadAct(it)
-            } catch (_: Exception) {}
+            } catch (e: Exception) { android.util.Log.e("Repo", "Firebase error", e) }
+
         }
 
+    }
+
+    suspend fun deleteAllData(actividad: Actividad) {
+        val allActs = gestorDAO.getAllActs().first()
+        allActs.forEach {
+            gestorDAO.deleteAct(it)
+            try {
+                firebaseService.deleteAct(it)
+            } catch (e: Exception) { android.util.Log.e("Repo", "Firebase error", e) }
+
+        }
     }
 }
