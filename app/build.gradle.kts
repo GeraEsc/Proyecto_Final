@@ -4,9 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
     id("com.google.devtools.ksp")
-    id("com.google.gms.google-services") version "4.4.3" apply false //Firebase
-
-
+    // id("com.google.gms.google-services") // solo cuando actives Firebase
 }
 
 android {
@@ -32,6 +30,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -39,13 +38,14 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
     }
 }
 
 dependencies {
-
+    // AndroidX y Compose base
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -54,9 +54,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.room.common.jvm)
-    implementation(libs.androidx.adapters)
-    implementation(libs.androidx.room.ktx)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -65,39 +64,34 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    //Material3
-    implementation("androidx.compose.material3:material3:1.2.0")
+    // Material
+    implementation("androidx.compose.material3:material3:1.2.1")
     implementation("androidx.compose.material3:material3-window-size-class:1.2.0")
     implementation("androidx.compose.material:material-icons-extended:1.6.1")
 
-
-    // Import the Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
-    //Firebase
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
-
-
-    // TODO: Add the dependencies for Firebase products you want to use
-    // When using the BoM, don't specify versions in Firebase dependencies
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-firestore-ktx")
-
+    // Navigation Compose
+    implementation("androidx.navigation:navigation-compose:2.7.5")
 
     // Room
     implementation("androidx.room:room-runtime:2.7.2")
     implementation("androidx.room:room-ktx:2.7.2")
     ksp("androidx.room:room-compiler:2.7.2")
 
+    // Lifecycle + ViewModel
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
-    // Add the dependencies for any other desired Firebase products
-    // https://firebase.google.com/docs/android/setup#available-libraries
+    // Datastore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
-    // WorkManager
+    // Core-Data module
+    implementation(project(":core-data"))
 
-
+    // 🔥 Firebase (comentar por ahora para no pedir google-services.json)
+    // implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
+    // implementation("com.google.firebase:firebase-auth-ktx")
+    // implementation("com.google.firebase:firebase-firestore-ktx")
+    // implementation("com.google.firebase:firebase-analytics")
+    // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1")
 }
-
-apply (plugin = "com.google.gms.google-services")

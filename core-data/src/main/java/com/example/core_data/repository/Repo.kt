@@ -66,20 +66,20 @@ class Repo(
             Actividad(
                 titulo = "Correr",
                 descripcion = "Correr en el parque",
-                date = "2024-06-01",
-                calificaciones = 3.5
+                fecha = "2024-06-01",
+                //calificaciones = 3.5
             ),
             Actividad(
                 titulo = "Nadar",
                 descripcion = "Nadar en la piscina",
-                date = "2024-06-02",
-                calificaciones = 4.0
+                fecha = "2024-06-02",
+                //calificaciones = 4.0
             ),
             Actividad(
                 titulo = "Ciclismo",
                 descripcion = "Paseo en bicicleta",
-                date = "2024-06-03",
-                calificaciones = 5.0
+                fecha = "2024-06-03",
+                //calificaciones = 5.0
             )
 
         )

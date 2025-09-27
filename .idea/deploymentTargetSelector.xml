@@ -5,10 +5,10 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="app.core-data">
+      <SelectionState runConfigName="core-data">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="core-data">
+      <SelectionState runConfigName="services">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
