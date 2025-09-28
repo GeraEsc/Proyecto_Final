@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "Proyecto_Final"
 include(":app")
 include(":core-data")
+include(":registration")
+include(":services")

@@ -17,10 +17,6 @@ data class Actividad(
     val date: String,
     val calificaciones: Double
 
-
-//    @ColumnInfo(name = "title") val title: String,
-//    @ColumnInfo(name = "content") val content: String,
-//    @ColumnInfo(name = "date") val date: LocalDateTime
 ){
 
     //Convertir a map para firebase

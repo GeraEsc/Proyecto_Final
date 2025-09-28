@@ -1,0 +1,15 @@
+
+package com.example.proyecto_final
+
+import android.app.Application
+import com.example.proyecto_final.di.AppContainer
+
+class MyApp : Application() {
+    lateinit var container: AppContainer
+        private set
+
+    override fun onCreate() {
+        super.onCreate()
+        container = AppContainer(this)
+    }
+}

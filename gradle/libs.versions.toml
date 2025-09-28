@@ -12,6 +12,11 @@ roomCommonJvm = "2.8.0"
 adapters = "3.2.0-alpha11"
 roomKtx = "2.8.0"
 navigationCompose = "2.9.4"
+runtimeSaveable = "1.9.2"
+firebaseAuthKtx = "24.0.1"
+navigationRuntimeKtx = "2.9.5"
+material3 = "1.4.0"
+gamesActivity = "4.0.0"
 
 
 [libraries]
@@ -39,6 +44,11 @@ firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx"
 firebase-auth-ktx      = { module = "com.google.firebase:firebase-auth-ktx" }
 firebase-analytics     = { module = "com.google.firebase:firebase-analytics" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-compose-runtime-saveable = { group = "androidx.compose.runtime", name = "runtime-saveable", version.ref = "runtimeSaveable" }
+google-firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+androidx-games-activity = { group = "androidx.games", name = "games-activity", version.ref = "gamesActivity" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

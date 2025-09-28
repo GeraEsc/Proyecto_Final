@@ -26,23 +26,22 @@ android {
 }
 
 dependencies {
+
+
     // --- Firebase (solo lo necesario para datos) ---
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore.ktx)
-
-    // implementation(libs.firebase.auth.ktx)
-
 
     // --- Coroutines (para .await() y corrutinas en repo/vm) ---
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
-    // --- Lifecycle (viewModelScope si lo usas desde el VM en core-data) ---
+
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
-    // --- Room (en el módulo donde están @Database/@Dao) ---
+    // --- Room (en el modulo donde estan @Database/@Dao) ---
     api("androidx.room:room-runtime:2.6.1")
     api("androidx.room:room-ktx:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")

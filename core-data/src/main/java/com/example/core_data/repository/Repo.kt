@@ -3,8 +3,10 @@ package com.example.core_data.repository
 import com.example.core_data.model.Actividad
 import com.example.core_data.data.GestorDao
 import com.example.core_data.firebase.FirebaseActService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 
 class Repo(
     private val gestorDAO: GestorDao,
@@ -38,63 +40,12 @@ class Repo(
 
     }
 
-    suspend fun syncFromFirebase() {
-        try {
-            val remoteActs = firebaseService.getAllActs()
-            val localActs = gestorDAO.getAllActs().first()
+    suspend fun syncFromFirebase() = withContext(Dispatchers.IO) {
+        // Obtener todas las actividades desde Firebase
+        val remote = firebaseService
+        val remoteActs = remote.getAllActs()
+        // Opción A: reemplazar completamente lo local por lo remoto:
+        gestorDAO.replaceAllTx(remoteActs)
 
-            remoteActs.forEach { remote ->
-                if (localActs.none { it.id == remote.id }) {
-                    gestorDAO.insertAct(remote)
-                }
-            }
-        } catch (e: Exception) { android.util.Log.e("Repo", "Firebase error", e) }
-
-    }
-
-    // TODO --- REMOVE --- Tests
-    suspend fun insertFakeData() {
-        val fakeActs = listOf(
-            Actividad(
-                titulo = "Correr",
-                descripcion = "Correr en el parque",
-                date = "2024-06-01",
-                calificaciones = 3.5
-            ),
-            Actividad(
-                titulo = "Nadar",
-                descripcion = "Nadar en la piscina",
-                date = "2024-06-02",
-                calificaciones = 4.0
-            ),
-            Actividad(
-                titulo = "Ciclismo",
-                descripcion = "Paseo en bicicleta",
-                date = "2024-06-03",
-                calificaciones = 5.0
-            )
-
-        )
-
-
-        fakeActs.forEach {
-            gestorDAO.insertAct(it)
-            try {
-                firebaseService.uploadAct(it)
-            } catch (e: Exception) { android.util.Log.e("Repo", "Firebase error", e) }
-
-        }
-
-    }
-
-    suspend fun deleteAllData(actividad: Actividad) {
-        val allActs = gestorDAO.getAllActs().first()
-        allActs.forEach {
-            gestorDAO.deleteAct(it)
-            try {
-                firebaseService.deleteAct(it)
-            } catch (e: Exception) { android.util.Log.e("Repo", "Firebase error", e) }
-
-        }
     }
 }

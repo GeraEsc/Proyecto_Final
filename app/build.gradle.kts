@@ -36,8 +36,25 @@ android {
 }
 
 dependencies {
-    // Conecta con el modulo de datos
+    // Modulos
     implementation(project(":core-data"))
+    implementation(project(":registration"))
+    implementation(project(":services"))
+
+
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+
+
+    implementation(platform(libs.firebase.bom))
+
+    // Auth + Google Sign-In
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+
+
+    // Firestore
+    implementation("com.google.firebase:firebase-firestore-ktx")
 
     // Compose + Navigation
     implementation(libs.androidx.core.ktx)
@@ -50,6 +67,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.navigation.compose)
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
+    implementation(libs.androidx.games.activity)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
@@ -58,12 +76,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    // Firebase en app (Analytics, y BOM para alinear versiones)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
-
-
-    implementation("com.google.firebase:firebase-firestore-ktx")
 }
 
