@@ -23,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core_data.viewmodel.GestorViewModel
 
+
+//Pantalla de login y registro combinados
 @Composable
 fun LoginRegisterScreen(
     onLogin: (String, String) -> Unit,
@@ -47,6 +49,7 @@ fun LoginRegisterScreen(
     val passwordFocus = remember { FocusRequester() }
     val confirmFocus = remember { FocusRequester() }
 
+    //Validadores
     fun validateEmail(value: String): String? {
         val v = value.trim()
         if (v.isEmpty()) return "El correo no puede estar vacío"
@@ -79,7 +82,7 @@ fun LoginRegisterScreen(
         confirmError = if (!isLoginMode) validateConfirm(password, confirm) else null
     }
 
-    // Revalidar al cambiar de modo
+    //Revalidar al cambiar de modo
     LaunchedEffect(isLoginMode) {
         if (isLoginMode) {
             confirm = ""
@@ -88,7 +91,7 @@ fun LoginRegisterScreen(
         revalidateAll()
     }
 
-    // Revalidación en cambios
+    //Revalidacion en cambios
     LaunchedEffect(email) { emailError = validateEmail(email) }
     LaunchedEffect(password) {
         passwordErrors = validatePassword(password)
@@ -112,6 +115,7 @@ fun LoginRegisterScreen(
         if (isLoginMode) onLogin(e, p) else onRegister(e, p)
     }
 
+    //UI
     Scaffold { padding ->
         Column(
             modifier = modifier
@@ -129,7 +133,7 @@ fun LoginRegisterScreen(
                 textAlign = TextAlign.Center
             )
             Text(
-                text = if (isLoginMode) "Iniciar sesión" else "Registrarse",
+                text = if (isLoginMode) "Iniciar sesion" else "Registrarse",
                 style = MaterialTheme.typography.headlineSmall,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 8.dp)
@@ -147,7 +151,7 @@ fun LoginRegisterScreen(
                 Spacer(Modifier.height(8.dp))
             }
 
-            // EMAIL
+            //EMAIL
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -173,7 +177,7 @@ fun LoginRegisterScreen(
             )
             Spacer(Modifier.height(12.dp))
 
-            // PASSWORD
+            //PASSWORD
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -189,7 +193,7 @@ fun LoginRegisterScreen(
                         }
                     } else {
                         Text(
-                            "Debe incluir mayúscula, minúscula, número y símbolo (mín. 8)",
+                            "Debe incluir mayuscula, minuscula, numero y simbolo (mín. 8)",
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -219,7 +223,7 @@ fun LoginRegisterScreen(
             )
             Spacer(Modifier.height(12.dp))
 
-            // CONFIRM PASSWORD (solo registro)
+            //CONFIRM PASSWORD (solo registro)
             if (!isLoginMode) {
                 OutlinedTextField(
                     value = confirm,
@@ -266,12 +270,12 @@ fun LoginRegisterScreen(
                     .fillMaxWidth()
                     .height(52.dp)
             ) {
-                Text(if (isLoginMode) "Iniciar sesión" else "Registrarme")
+                Text(if (isLoginMode) "Iniciar sesion" else "Registrarme")
             }
 
             Spacer(Modifier.height(12.dp))
 
-            // Separador "o"
+            //Separador "o"
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
@@ -287,7 +291,7 @@ fun LoginRegisterScreen(
 
             Spacer(Modifier.height(12.dp))
 
-            // GOOGLE
+            //GOOGLE
             OutlinedButton(
                 onClick = { if (!isLoading) onGoogleSignIn() },
                 enabled = !isLoading,
@@ -300,7 +304,7 @@ fun LoginRegisterScreen(
 
             Spacer(Modifier.height(8.dp))
 
-            // CAMBIO DE MODO
+            //CAMBIO DE MODO
             TextButton(onClick = {
                 if (!isLoading) {
                     isLoginMode = !isLoginMode
@@ -311,9 +315,9 @@ fun LoginRegisterScreen(
             }) {
                 Text(
                     if (isLoginMode)
-                        "¿No tienes cuenta? Regístrate"
+                        "No tienes cuenta? Registrate"
                     else
-                        "¿Ya tienes cuenta? Inicia sesión"
+                        "Ya tienes cuenta? Inicia sesion"
                 )
             }
 

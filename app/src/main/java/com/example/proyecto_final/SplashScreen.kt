@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
+
+//Pantalla de bienvenida con animación y logo
 @Composable
 fun SplashScreen(
     navController: NavController,
@@ -40,6 +42,7 @@ fun SplashScreen(
         label = "logo-scale"
     )
 
+    // Iniciar la animación al componer
     LaunchedEffect(Unit) {
         visible = true
         delay(durationMillis.toLong())
@@ -75,6 +78,7 @@ fun SplashScreen(
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 }
+                // Espacio para el indicador de progreso
                 if (showProgress) {
                     Spacer(Modifier.height(18.dp))
                     CircularProgressIndicator()
@@ -84,11 +88,12 @@ fun SplashScreen(
     }
 }
 
+// Composable para el logo con las siglas "GV" dentro de un círculo con gradiente
 @Composable
 private fun LogoBadge(
     modifier: Modifier = Modifier
 ) {
-    // Círculo con gradiente + siglas GV
+    // Circulo con gradiente + siglas GV
     val grad = Brush.linearGradient(
         colors = listOf(
             MaterialTheme.colorScheme.primary,

@@ -11,11 +11,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.google.firebase.auth.FirebaseAuth
 
+
+//Pantalla de perfil
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
     onBack: () -> Unit,
-    onSignOut: () -> Unit,          // el host (app) decide adónde navegar tras cerrar sesión
+    onSignOut: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val user = remember { FirebaseAuth.getInstance().currentUser }
@@ -25,7 +27,7 @@ fun ProfileScreen(
             TopAppBar(
                 title = { Text("Mi perfil") },
                 navigationIcon = {
-                    TextButton(onClick = onBack) { Text("Atrás") }
+                    TextButton(onClick = onBack) { Text("Atras") }
                 }
             )
         }
@@ -39,7 +41,7 @@ fun ProfileScreen(
         ) {
             Spacer(Modifier.height(12.dp))
 
-            // Foto (si hay) – requiere coil-compose
+            //
             AsyncImage(
                 model = user?.photoUrl,
                 contentDescription = "Foto de perfil",
@@ -58,7 +60,7 @@ fun ProfileScreen(
                 onClick = onSignOut,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Cerrar sesión")
+                Text("Cerrar sesion")
             }
         }
     }

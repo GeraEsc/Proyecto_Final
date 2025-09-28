@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+//Pantalla de configuracion
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
@@ -19,7 +20,7 @@ fun SettingsScreen(
         topBar = {
             TopAppBar(
                 title = { Text("Configuración") },
-                navigationIcon = { TextButton(onClick = onBack) { Text("Atrás") } }
+                navigationIcon = { TextButton(onClick = onBack) { Text("Atras") } }
             )
         }
     ) { padding ->

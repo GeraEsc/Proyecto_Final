@@ -13,11 +13,13 @@ import com.example.core_data.viewmodel.GestorViewModel
 import java.time.LocalDate
 import java.util.UUID
 
+
+//Pantalla para crear o editar una actividad
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ActEditorScreen(
     viewModel: GestorViewModel,
-    actId: String? = null,            // null => crear; no-null => editar
+    actId: String? = null,
     onClose: () -> Unit
 ) {
     val myActs by viewModel.acts.collectAsState(initial = emptyList())
@@ -25,7 +27,7 @@ fun ActEditorScreen(
     val isEdit = existing != null
     val isLocal = existing?.id?.startsWith("local-") ?: true // nuevas también son "local"
 
-    // Parse simple de "Lugar: xxx" en la primera línea de la descripción
+    // Parse simple de "Lugar: xxx" en la primera línea de la descripcion
     fun splitDescripcion(desc: String?): Pair<String, String?> {
         if (desc.isNullOrBlank()) return "" to null
         val lines = desc.lines()
@@ -47,15 +49,17 @@ fun ActEditorScreen(
     var fecha by rememberSaveable { mutableStateOf(existing?.date.orEmpty()) }  // YYYY-MM-DD
     var lugar by rememberSaveable { mutableStateOf(lugar0.orEmpty()) }
 
-    // Validaciones
+    //Validaciones
     val tituloError = titulo.isBlank()
     val fechaError = fecha.isNotBlank() && runCatching { LocalDate.parse(fecha) }.isFailure
 
+    //Reconstruir descripción con posible lugar
     fun buildDescripcion(lugar: String, descripcion: String): String =
         buildString {
             if (lugar.isNotBlank()) append("Lugar: ${lugar.trim()}\n")
             append(descripcion.trim())
         }
+
 
     Scaffold(
         topBar = {
@@ -93,9 +97,9 @@ fun ActEditorScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             if (isEdit && !isLocal) {
-                // Bloque informativo para actividades de catálogo (NO editables)
+                //Bloque informativo para actividades de catalogo
                 Text(
-                    "Esta actividad proviene del catálogo y no puede editarse ni eliminarse.",
+                    "Esta actividad proviene del catalogo y no puede editarse ni eliminarse.",
                     color = MaterialTheme.colorScheme.secondary
                 )
             }
@@ -141,7 +145,7 @@ fun ActEditorScreen(
             OutlinedTextField(
                 value = descripcion,
                 onValueChange = { descripcion = it },
-                label = { Text("Descripción") },
+                label = { Text("Descripcion") },
                 minLines = 4,
                 keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
                     keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
@@ -150,7 +154,7 @@ fun ActEditorScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // Botón eliminar solo si es una actividad local creada manualmente
+            //Boton eliminar solo si es una actividad local creada manualmente
             if (isEdit && isLocal) {
                 Spacer(Modifier.height(8.dp))
                 OutlinedButton(

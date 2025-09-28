@@ -8,14 +8,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
+//Repositorio que gestiona las operaciones de datos entre Room y Firebase
 class Repo(
     private val gestorDAO: GestorDao,
     private val firebaseService: FirebaseActService
 ) {
 
 
+    // Obtener todas las actividades desde Room como un Flow reactivo
     fun getAllActs(): Flow<List<Actividad>> = gestorDAO.getAllActs()
 
+    //Operaciones CRUD con sincronizacion a Firebase
     suspend fun insert(act: Actividad) {
         gestorDAO.insertAct(act)
         try {
@@ -40,11 +43,11 @@ class Repo(
 
     }
 
+    //Sincronizar datos desde Firebase a Room
     suspend fun syncFromFirebase() = withContext(Dispatchers.IO) {
-        // Obtener todas las actividades desde Firebase
+        //Obtener todas las actividades desde Firebase
         val remote = firebaseService
         val remoteActs = remote.getAllActs()
-        // Opción A: reemplazar completamente lo local por lo remoto:
         gestorDAO.replaceAllTx(remoteActs)
 
     }

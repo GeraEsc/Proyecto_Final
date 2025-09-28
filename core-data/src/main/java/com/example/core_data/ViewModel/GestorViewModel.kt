@@ -13,15 +13,17 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+
+//ViewModel que gestiona la logica de negocio y la interaccion entre la UI y el repositorio
 class GestorViewModel(
     private val repository: Repo
 ) : ViewModel() {
 
-    // Lista reactiva desde Room
+    //Lista reactiva desde Room
     private val _acts = MutableStateFlow<List<Actividad>>(emptyList())
     val acts: StateFlow<List<Actividad>> = _acts.asStateFlow()
 
-    // Conjunto de IDs inscritos (derivado de 'acts')
+    //Conjunto de IDs inscritos (derivado de acts)
     val enrolledIds: StateFlow<Set<String>> =
         acts.map { list -> list.map { it.id }.toSet() }
             .stateIn(viewModelScope, SharingStarted.Eagerly, emptySet())
@@ -34,9 +36,7 @@ class GestorViewModel(
         }
     }
 
-    // -------------------
-    // CRUD básico
-    // -------------------
+   // CRUD - Create, Read, Update, Delete
     fun insertAct(act: Actividad) {
         viewModelScope.launch {
             repository.insert(act)
@@ -55,9 +55,8 @@ class GestorViewModel(
         }
     }
 
-    // -------------------
-    // Toggle de inscripción
-    // -------------------
+
+    //Gestion de inscripciones
 
     fun isEnrolledNow(id: String): Boolean = enrolledIds.value.contains(id)
 
@@ -72,9 +71,7 @@ class GestorViewModel(
 
 
 
-    // -------------------
-    // Sincronizacion remota
-    // -------------------
+    // Sincronizacion con Firebase
     fun syncFromFirebase() {
         viewModelScope.launch {
             repository.syncFromFirebase()

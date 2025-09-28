@@ -30,6 +30,8 @@ import com.example.services.data.FeaturedActs
 import com.example.services.ui.components.ActCard
 import java.time.LocalDate
 
+
+//Pantalla principal con listado de actividades
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ActsScreen(
@@ -95,7 +97,7 @@ fun ActsScreen(
             .fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
-        // ------------------ Cabecera con iconos ------------------
+        //Cabecera
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
@@ -109,11 +111,11 @@ fun ActsScreen(
                     color = MaterialTheme.colorScheme.primary
                 )
             }
-            // icono configuración
+            //icono configuración
             IconButton(onClick = { navController.navigate("settings") }) {
-                Icon(Icons.Rounded.Settings, contentDescription = "Configuración")
+                Icon(Icons.Rounded.Settings, contentDescription = "Configuracion")
             }
-            // icono perfil
+            //icono perfil
             IconButton(onClick = { navController.navigate("profile") }) {
                 Icon(Icons.Rounded.AccountCircle, contentDescription = "Perfil")
             }
@@ -125,7 +127,7 @@ fun ActsScreen(
         OutlinedTextField(
             value = query,
             onValueChange = { query = it },
-            label = { Text("Buscar por título o descripción") },
+            label = { Text("Buscar por título o descripcion") },
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
@@ -136,7 +138,7 @@ fun ActsScreen(
 
         Spacer(Modifier.height(8.dp))
 
-        // ------------------ Filtros ------------------
+        //Filtros de categoría y ubicacion
         Row(verticalAlignment = Alignment.CenterVertically) {
             var expCat by remember { mutableStateOf(false) }
             ExposedDropdownMenuBox(
@@ -195,7 +197,7 @@ fun ActsScreen(
 
         Spacer(Modifier.height(8.dp))
 
-        // ------------------ Rango de fecha ------------------
+        //Filtros de fecha
         Row {
             OutlinedTextField(
                 value = startDate,
@@ -257,13 +259,13 @@ fun ActsScreen(
 
         Divider()
 
-        // ------------------ Mis inscripciones (Room) ------------------
+        //Mis inscripciones
         Spacer(Modifier.width(8.dp))
         Text("Mis inscripciones", style = MaterialTheme.typography.titleMedium)
         Spacer(Modifier.height(6.dp))
 
         if (myActs.isEmpty()) {
-            Text("Aún no te has inscrito en ninguna actividad.")
+            Text("Aun no te has inscrito en ninguna actividad.")
         } else {
             LazyColumn(
                 modifier = Modifier.weight(1f, fill = false),
@@ -302,6 +304,8 @@ fun ActsScreen(
     }
 }
 
+
+//Tarjeta para actividad destacada en el carrusel
 @Composable
 private fun FeaturedCard(
     featured: FeaturedAct,

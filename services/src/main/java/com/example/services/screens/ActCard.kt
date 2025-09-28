@@ -10,6 +10,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.core_data.model.Actividad
 
+
+//Tarjeta para mostrar una actividad con opciones para inscribirse y ver detalles
 @Composable
 fun ActCard(
     act: Actividad,

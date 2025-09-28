@@ -23,21 +23,21 @@ class AppContainer(app: Application) {
         }
     }
 
-    // --- Room ---
+    //Room
     private val gestorDao: GestorDao by lazy {
         GestorDatabase.getInstance(app).gestorDao()
     }
 
-    // --- Firebase ---
+    //Firebase
     private val firestore by lazy { FirebaseFirestore.getInstance() }
     private val firebaseService by lazy { FirebaseActService(firestore) }
 
-    // --- Repo ---
+    //Repo
     private val repo by lazy { Repo(gestorDao, firebaseService) }
 
 
 
-    // --- ViewModel Factory ---
+    //ViewModel Factory
     fun gestorVmFactory(): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

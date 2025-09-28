@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.example.core_data.viewmodel.GestorViewModel
 import com.example.proyecto_final.navigation.Routes
 import com.example.proyecto_final.navigation.Routes.Splash
+import com.example.ratings.screens.RatingsScreen
 import com.example.registration.Screens.LoginRegisterScreen
 import com.example.registration.Screens.ProfileScreen
 import com.example.registration.Screens.SettingsScreen
@@ -33,6 +34,7 @@ fun AppNavHost(
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
 
+        // Rutas de Perfil y Configuracion
         composable(Routes.Settings) {
             SettingsScreen(
                 isDarkMode = isDarkMode,
@@ -41,6 +43,35 @@ fun AppNavHost(
             )
         }
 
+
+        // Rutas de Ratings
+        composable("act_detail/{actId}") { backStackEntry ->
+            val actId = backStackEntry.arguments?.getString("actId") ?: return@composable
+
+            ActDetailScreen(
+                actId = actId,
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() },
+                onEditLocal = { navController.navigate("act_editor?actId=$actId") },
+                onSeeReviews = { navController.navigate("ratings/$actId") } // <--- aquí navegas a Ratings
+            )
+        }
+
+        composable(
+            route = "ratings/{actId}",
+            arguments = listOf(navArgument("actId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val actId = backStackEntry.arguments?.getString("actId") ?: return@composable
+            RatingsScreen(
+                actId = actId,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+
+
+
+        // Autenticacion
         composable("auth/login") {
             LoginRegisterScreen(
                 onLogin = onLogin,
@@ -49,6 +80,7 @@ fun AppNavHost(
             )
         }
 
+        // Lista
         composable("ActsList") {
             ActsScreen(
                 navController = navController,
@@ -56,6 +88,7 @@ fun AppNavHost(
             )
         }
 
+        // Detalle
         composable(
             route = "act_detail/{id}",
             arguments = listOf(navArgument("id") { type = NavType.StringType })
@@ -65,7 +98,8 @@ fun AppNavHost(
                 actId = id,
                 viewModel = viewModel,
                 onBack = { navController.popBackStack() },
-                onEditLocal = { navController.navigate("act_editor/$id") }
+                onEditLocal = { navController.navigate("act_editor/$id") },
+                onSeeReviews = { navController.navigate("ratings/$id") } //Navega a Ratings con el actId
             )
         }
 
@@ -111,11 +145,11 @@ fun AppNavHost(
             ProfileScreen(
                 onBack = { navController.popBackStack() },
                 onSignOut = {
-                    // 1) Cierra FirebaseAuth (y Google si aplica)
+                    //Cierra FirebaseAuth
                     FirebaseAuth.getInstance().signOut()
-                    // googleClient.signOut() // si usas GoogleSignIn
 
-                    // 2) Navega al login y limpia backstack
+
+                    //Navega al login
                     navController.navigate("auth/login") {
                         popUpTo(0)
                     }
@@ -123,6 +157,7 @@ fun AppNavHost(
             )
         }
 
+        // Configuracion
         composable("settings") {
             SettingsScreen(
                 isDarkMode = isDarkMode,

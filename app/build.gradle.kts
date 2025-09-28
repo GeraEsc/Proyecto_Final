@@ -40,6 +40,7 @@ dependencies {
     implementation(project(":core-data"))
     implementation(project(":registration"))
     implementation(project(":services"))
+    implementation(project(":ratings"))
 
 
     implementation("androidx.datastore:datastore-preferences:1.1.1")

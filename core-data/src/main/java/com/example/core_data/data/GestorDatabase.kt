@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.core_data.model.Actividad
 
+//Definición de la base de datos Room
 @Database(
     entities = [Actividad::class],
     version = 1,
@@ -18,6 +19,7 @@ abstract class GestorDatabase : RoomDatabase() {
     companion object {
         @Volatile private var INSTANCE: GestorDatabase? = null
 
+        //Obtener la instancia singleton de la base de datos
         fun getInstance(context: Context): GestorDatabase =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: Room.databaseBuilder(

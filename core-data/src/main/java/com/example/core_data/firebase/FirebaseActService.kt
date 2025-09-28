@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
 
+//Servicio para interactuar con Firebase Firestore
 class FirebaseActService (
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 ) {
